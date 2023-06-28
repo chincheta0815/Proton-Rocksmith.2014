@@ -443,6 +443,29 @@ $(eval $(call rules-configure,openfst,x86_64,unix))
 
 
 ##
+## kaldi
+##
+
+KALDI_SOURCE_ARGS = \
+  --exclude src/**/CMakeLists.txt \
+
+KALDI_CMAKE_ARGS = \
+  -DKALDI_VERSION=5.5-proton \
+  -DBLAS_LIBRARIES=-lblas \
+  -DLAPACK_LIBRARIES=-llapack \
+  -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
+  -DBUILD_SHARED_LIBS=OFF \
+  -DKALDI_BUILD_TEST=OFF \
+  -DKALDI_BUILD_EXE=OFF \
+
+KALDI_DEPENDS = openfst
+
+$(eval $(call rules-source,kaldi,$(SRCDIR)/kaldi))
+$(eval $(call rules-cmake,kaldi,i386,unix))
+$(eval $(call rules-cmake,kaldi,x86_64,unix))
+
+
+##
 ## wine
 ##
 
