@@ -538,6 +538,7 @@ class Proton:
                 platform.machine() == 'aarch64' and \
                 file_exists(self.path("files/bin-arm64/"), follow_symlinks=True):
             self.host_pe_arch = "aarch64-windows"
+            self.default_pfx_dir = self.path("files/share/default_pfx_arm64/")
             self.bin_dir = self.path("files/bin-arm64/")
             self.wine_bin = self.bin_dir + "wine"
             self.wine64_bin = self.bin_dir + "wine"
