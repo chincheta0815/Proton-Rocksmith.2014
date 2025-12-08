@@ -528,7 +528,6 @@ class Proton:
         self.default_pfx_dir = self.path("files/share/default_pfx/")
         self.user_settings_file = self.path("user_settings.py")
         self.wine_bin = self.bin_dir + "wine"
-        self.wine64_bin = self.bin_dir + "wine64"
         self.wineserver_bin = self.bin_dir + "wineserver"
         self.dist_lock = FileLock(self.path("dist.lock"), timeout=-1)
         self.host_pe_arch = "x86_64-windows"
@@ -541,12 +540,10 @@ class Proton:
             self.default_pfx_dir = self.path("files/share/default_pfx_arm64/")
             self.bin_dir = self.path("files/bin-arm64/")
             self.wine_bin = self.bin_dir + "wine"
-            self.wine64_bin = self.bin_dir + "wine"
             self.wineserver_bin = self.bin_dir + "wineserver"
         elif os.environ.get("PROTON_USE_WOW64", None) == "1" or not file_exists(self.wine_bin, follow_symlinks=True):
             self.bin_dir = self.path("files/bin-wow64/")
             self.wine_bin = self.bin_dir + "wine"
-            self.wine64_bin = self.bin_dir + "wine"
             self.wineserver_bin = self.bin_dir + "wineserver"
 
     def path(self, d):
@@ -2059,7 +2056,7 @@ class Session:
                 ]:
             argv = [g_proton.wine_bin, "c:\\Program Files (x86)\\Steam\\steam.exe"]
         else:
-            argv = [g_proton.wine64_bin, "c:\\windows\\system32\\steam.exe"]
+            argv = [g_proton.wine_bin, "c:\\windows\\system32\\steam.exe"]
 
         rc = self.run_proc(adverb + argv + sys.argv[2:] + self.cmdlineappend)
 
