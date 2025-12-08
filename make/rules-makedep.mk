@@ -19,6 +19,7 @@ $(2)_aarch64-windows_LIBFLAGS = $$(foreach d,$$($(2)_aarch64_DEPS),-L$$($$(d)_aa
 
 $$(OBJ)/.$(1)-$(3)-configure: $$(OBJ)/.wine-$$(HOST_ARCH)-tools
 	@echo ":: configuring $(1)-$(3)..." >&2
+	touch $$($(2)_$(3)_OBJ)/config.status
 
 	sed -e '1 i\UNIX_LIBS = $$(WINE_$(3)_LIBDIR)/wine/$(3)-unix/ntdll.so\n' \
 	    -e '/^all:$$$$/,$$$$c all:' \
