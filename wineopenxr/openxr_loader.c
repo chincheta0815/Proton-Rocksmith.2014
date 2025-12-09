@@ -1784,7 +1784,7 @@ XrResult WINAPI xrCreateVulkanInstanceKHR(XrInstance instance,
   vulkan_create_info = *createInfo->vulkanCreateInfo;
   callback.sType = VK_STRUCTURE_TYPE_CREATE_INFO_WINE_INSTANCE_CALLBACK;
   callback.native_create_callback = g_vk_create_instance_callback;
-  callback.context = &context;
+  callback.context = (UINT64)&context;
   callback.pNext = vulkan_create_info.pNext;
   vulkan_create_info.pNext = &callback;
 
@@ -1819,7 +1819,7 @@ XrResult WINAPI xrCreateVulkanDeviceKHR(XrInstance instance,
   vulkan_create_info = *createInfo->vulkanCreateInfo;
   callback.sType = VK_STRUCTURE_TYPE_CREATE_INFO_WINE_DEVICE_CALLBACK;
   callback.native_create_callback = g_vk_create_device_callback;
-  callback.context = &context;
+  callback.context = (UINT64)&context;
   callback.pNext = vulkan_create_info.pNext;
   vulkan_create_info.pNext = &callback;
 
