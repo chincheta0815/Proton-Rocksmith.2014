@@ -2,9 +2,6 @@
 
 #include <stdlib.h>
 
-#define WINE_VK_HOST
-#include <vulkan/vulkan.h>
-
 #if 0
 #pragma makedep unix
 #endif
@@ -81,10 +78,10 @@ static u_VRVulkanTextureData_t *unwrap_texture_vkdata( const WVulkanTextureData 
     if (!w_vkdata) return NULL;
 
     *u_vkdata = *w_vkdata;
-    u_vkdata->m_pDevice = p_get_native_VkDevice( w_vkdata->m_pDevice );
-    u_vkdata->m_pPhysicalDevice = p_get_native_VkPhysicalDevice( w_vkdata->m_pPhysicalDevice );
-    u_vkdata->m_pInstance = p_get_native_VkInstance( w_vkdata->m_pInstance );
-    u_vkdata->m_pQueue = p_get_native_VkQueue( w_vkdata->m_pQueue );
+    u_vkdata->m_pDevice = vulkan_device_from_handle( w_vkdata->m_pDevice )->host.device;
+    u_vkdata->m_pPhysicalDevice = vulkan_physical_device_from_handle( w_vkdata->m_pPhysicalDevice )->host.physical_device;
+    u_vkdata->m_pInstance = vulkan_instance_from_handle( w_vkdata->m_pInstance )->host.instance;
+    u_vkdata->m_pQueue = vulkan_queue_from_handle( w_vkdata->m_pQueue )->host.queue;
 
     return u_vkdata;
 }
@@ -95,10 +92,10 @@ static u_VRVulkanTextureArrayData_t *unwrap_texture_vkdata_array( const WVulkanT
     if (!w_vkdata) return NULL;
 
     *u_vkdata = *w_vkdata;
-    u_vkdata->m_pDevice = p_get_native_VkDevice( w_vkdata->m_pDevice );
-    u_vkdata->m_pPhysicalDevice = p_get_native_VkPhysicalDevice( w_vkdata->m_pPhysicalDevice );
-    u_vkdata->m_pInstance = p_get_native_VkInstance( w_vkdata->m_pInstance );
-    u_vkdata->m_pQueue = p_get_native_VkQueue( w_vkdata->m_pQueue );
+    u_vkdata->m_pDevice = vulkan_device_from_handle( w_vkdata->m_pDevice )->host.device;
+    u_vkdata->m_pPhysicalDevice = vulkan_physical_device_from_handle( w_vkdata->m_pPhysicalDevice )->host.physical_device;
+    u_vkdata->m_pInstance = vulkan_instance_from_handle( w_vkdata->m_pInstance )->host.instance;
+    u_vkdata->m_pQueue = vulkan_queue_from_handle( w_vkdata->m_pQueue )->host.queue;
 
     return u_vkdata;
 }
@@ -174,7 +171,7 @@ template< typename Iface, typename Params >
 static NTSTATUS IVRCompositor_GetVulkanDeviceExtensionsRequired( Iface *iface, Params *params, bool wow64 )
 {
     const char vrext[] = "VK_WINE_openvr_device_extensions";
-    VkPhysicalDevice_T *host_device = p_get_native_VkPhysicalDevice( params->pPhysicalDevice );
+    VkPhysicalDevice_T *host_device = vulkan_physical_device_from_handle( params->pPhysicalDevice )->host.physical_device;
     VkPhysicalDeviceProperties prop;
     char buffer[2048], name[64];
     uint32_t i, len;

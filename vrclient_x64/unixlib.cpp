@@ -8,9 +8,6 @@
 #include <pthread.h>
 #include <stdlib.h>
 
-#define WINE_VK_HOST
-#include <vulkan/vulkan.h>
-
 #if 0
 #pragma makedep unix
 #endif
@@ -20,72 +17,11 @@ WINE_DEFAULT_DEBUG_CHANNEL(vrclient);
 static void *(*p_HmdSystemFactory)( const char *name, int *return_code );
 static void *(*p_VRClientCoreFactory)( const char *name, int *return_code );
 
-VkDevice_T *(*p_get_native_VkDevice)( VkDevice_T * );
-VkInstance_T *(*p_get_native_VkInstance)( VkInstance_T * );
-VkPhysicalDevice_T *(*p_get_native_VkPhysicalDevice)( VkPhysicalDevice_T * );
-VkPhysicalDevice_T *(*p_get_wrapped_VkPhysicalDevice)( VkInstance_T *, VkPhysicalDevice_T * );
-VkQueue_T *(*p_get_native_VkQueue)( VkQueue_T * );
-
 static PFN_vkCreateInstance p_vkCreateInstance;
 static PFN_vkDestroyInstance p_vkDestroyInstance;
 static PFN_vkEnumeratePhysicalDevices p_vkEnumeratePhysicalDevices;
 PFN_vkGetPhysicalDeviceProperties p_vkGetPhysicalDeviceProperties;
-
-static void *get_winevulkan_unixlib( HMODULE winevulkan )
-{
-    UINT64 unix_funcs;
-    NTSTATUS status;
-    Dl_info info;
-
-    status = NtQueryVirtualMemory( GetCurrentProcess(), winevulkan, (MEMORY_INFORMATION_CLASS)1000 /*MemoryWineUnixFuncs*/,
-                                   &unix_funcs, sizeof(unix_funcs), NULL );
-    if (status)
-    {
-        WINE_ERR("NtQueryVirtualMemory status %#x.\n", (int)status);
-        return NULL;
-    }
-
-    if (!dladdr( (void *)(ULONG_PTR)unix_funcs, &info ))
-    {
-        WINE_ERR("dladdr failed.\n");
-        return NULL;
-    }
-
-    WINE_TRACE( "path %s.\n", info.dli_fname );
-    return dlopen( info.dli_fname, RTLD_NOW );
-}
-
 static void *vulkan;
-
-static BOOL load_vk_unwrappers( HMODULE winevulkan )
-{
-    void *unix_handle;
-
-    if (!(unix_handle = get_winevulkan_unixlib( winevulkan )))
-    {
-        ERR("Unable to open winevulkan.so.\n");
-        return FALSE;
-    }
-
-#define LOAD_FUNC( name )                                                        \
-    if (!(p_##name = (decltype(p_##name))dlsym( unix_handle, "__wine_" #name ))) \
-    {                                                                            \
-        ERR( "%s not found.\n", #name );                                         \
-        dlclose( unix_handle );                                                  \
-        return FALSE;                                                            \
-    }
-
-    LOAD_FUNC( get_native_VkDevice )
-    LOAD_FUNC( get_native_VkInstance )
-    LOAD_FUNC( get_native_VkPhysicalDevice )
-    LOAD_FUNC( get_wrapped_VkPhysicalDevice )
-    LOAD_FUNC( get_native_VkQueue )
-
-#undef LOAD_FUNC
-
-    dlclose( unix_handle );
-    return TRUE;
-}
 
 BOOL load_vulkan(void)
 {
@@ -347,8 +283,6 @@ static NTSTATUS vrclient_init( Params *params, bool wow64 )
     LOAD_FUNC( VRClientCoreFactory );
 
 #undef LOAD_FUNC
-
-    if (!load_vk_unwrappers( params->winevulkan )) return 0;
 
     params->_ret = true;
     return 0;
