@@ -422,6 +422,8 @@ $(eval $(call rules-cmake,openxr,aarch64,unix))
 WINEOPENXR_LDFLAGS = -lopenxr_loader
 WINEOPENXR_DEPENDS = wine openxr
 
+WINEOPENXR_aarch64_PE_ARCHS = arm64ec x86_64
+
 $(eval $(call rules-source,wineopenxr,$(SRCDIR)/wineopenxr))
 $(eval $(call rules-makedep,wineopenxr,x86_64))
 $(eval $(call rules-makedep,wineopenxr,aarch64))

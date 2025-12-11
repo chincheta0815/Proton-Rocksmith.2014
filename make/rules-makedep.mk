@@ -63,6 +63,10 @@ $$(OBJ)/.$(1)-$(3)-configure: $$(OBJ)/.wine-$$(HOST_ARCH)-tools
 	    -e '/^PE_ARCHS/s/aarch64//' \
 	    $$(WINE_$(3)_OBJ)/Makefile > $$($(2)_$(3)_OBJ)/Makefile
 
+	if [ -n "$$($(2)_$(3)_PE_ARCHS)" ]; then \
+		sed -i -e '/^PE_ARCHS/c PE_ARCHS =  $$($(2)_$(3)_PE_ARCHS)' $$($(2)_$(3)_OBJ)/Makefile; \
+	fi
+
 	cd "$$($(2)_$(3)_OBJ)" && env $$($(2)_$(3)_ENV) \
 	$$(WINE_$$(HOST_ARCH)_OBJ)/tools/makedep
 
