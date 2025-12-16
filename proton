@@ -1001,6 +1001,10 @@ class CompatData:
                     "vcruntime1*.dll," +
                     "ucrtbase.dll," +
 
+                    #there are different instances (comctl32.dll in system32 and a copy of comctl32_v6.dll
+                    #in winsxs, handle that by leaving a copy)
+                    "comctl32.dll," +
+
                     #some games balk at ntdll symlink(?)
                     "ntdll.dll," +
 
