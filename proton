@@ -541,10 +541,6 @@ class Proton:
             self.bin_dir = self.path("files/bin-arm64/")
             self.wine_bin = self.bin_dir + "wine"
             self.wineserver_bin = self.bin_dir + "wineserver"
-        elif os.environ.get("PROTON_USE_WOW64", None) == "1" or not file_exists(self.wine_bin, follow_symlinks=True):
-            self.bin_dir = self.path("files/bin-wow64/")
-            self.wine_bin = self.bin_dir + "wine"
-            self.wineserver_bin = self.bin_dir + "wineserver"
 
     def path(self, d):
         return self.base_dir + d
@@ -1569,6 +1565,8 @@ class Session:
             self.env["SteamVirtualGamepadInfo"] = self.env["SteamVirtualGamepadInfo_Proton"]
 
         self.env.pop("WINEARCH", "")
+        if os.environ.get("PROTON_USE_WOW64", None) == "1" and platform.machine() == "x86_64":
+            self.env["WINEARCH"] = "wow64"
 
         if 'ORIG_'+ld_path_var not in os.environ:
             # Allow wine to restore this when calling an external app.
