@@ -2073,7 +2073,12 @@ class Session:
                 ]:
             argv = [g_proton.wine_bin, "c:\\Program Files (x86)\\Steam\\steam.exe"]
         else:
-            argv = [g_proton.wine_bin, "c:\\windows\\system32\\steam.exe"]
+            if g_proton.host_pe_arch == "x86_64-windows":
+                #run with winepreloader directly to avoid restart through start.exe
+                self.env["WINELOADERNOEXEC"] = "1"
+                argv = [g_proton.lib_dir + "/wine/x86_64-unix/wine-preloader", g_proton.lib_dir + "/wine/x86_64-unix/wine", "c:\\windows\\system32\\steam.exe"]
+            else:
+                argv = [g_proton.wine_bin, "c:\\windows\\system32\\steam.exe"]
 
         rc = self.run_proc(adverb + argv + sys.argv[2:] + self.cmdlineappend)
 
