@@ -104,6 +104,39 @@ static int parse_extensions( const char *extensions, char ***list )
     return count;
 }
 
+static void map_device_extensions( char **exts )
+{
+    static struct
+    {
+        const char *unix_ext;
+        const char *win32_ext;
+    }
+    map_extensions[] =
+    {
+        { "VK_KHR_external_memory_fd", "VK_KHR_external_memory_win32" },
+        { "VK_KHR_external_semaphore_fd", "VK_KHR_external_semaphore_win32" },
+        { "VK_KHR_external_fence_fd", "VK_KHR_external_fence_win32" },
+    };
+    int i, j, count;
+    char **list, *p;
+
+    count = parse_extensions( *exts, &list );
+    p = *exts = (char *)calloc( 1, strlen( *exts ) + 1 + ARRAY_SIZE(map_extensions) * 10 );
+    for (i = 0; i < count; ++i)
+    {
+        TRACE("%s\n", list[i]);
+        for (j = 0; j < ARRAY_SIZE(map_extensions); ++j)
+        {
+            if (!strcmp( list[i], map_extensions[j].unix_ext )) break;
+        }
+        if (i) *p++ = ' ';
+        strcpy( p, j == ARRAY_SIZE(map_extensions) ? list[i] : map_extensions[j].win32_ext );
+        p += strlen( p );
+    }
+    if (list) free( list[0] );
+    free( list );
+}
+
 template< typename Params >
 static NTSTATUS vrclient_init_registry( Params *params, bool wow64 )
 {
@@ -127,7 +160,7 @@ static NTSTATUS vrclient_init_registry( Params *params, bool wow64 )
     u_IVRCompositor_IVRCompositor_028 *compositor;
     VkPhysicalDevice *phys_devices = NULL;
     VkPhysicalDeviceProperties prop = {};
-    char *buffer = NULL, *new_buffer;
+    char *buffer = NULL, *new_buffer, *p;
     char *xr_inst_ext, *xr_dev_ext;
     VkInstance vk_instance = NULL;
     BOOL vr_initialized = FALSE;
@@ -219,6 +252,7 @@ static NTSTATUS vrclient_init_registry( Params *params, bool wow64 )
         if (!(buffer = (char *)malloc( length ))) goto failed;
         *buffer = 0;
         compositor->GetVulkanDeviceExtensionsRequired( phys_devices[i], buffer, length );
+        map_device_extensions( &buffer );
 
         sprintf( name, "PCIID:%04x:%04x", prop.vendorID, prop.deviceID );
         TRACE( "%s: %s.\n", name, buffer );
