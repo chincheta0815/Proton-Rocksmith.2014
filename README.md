@@ -262,13 +262,10 @@ and [docs/DEBUGGING-WINDOWS.md](docs/DEBUGGING-WINDOWS.md).
 For use with [clangd](https://clangd.llvm.org/) LSP server and similar tooling.
 
 Projects built using cmake or meson (e.g. vkd3d-proton) automatically come with
-`compile_commands.json`. For autotools (e.g. wine) you have to [configure the
-build](#configuring-the-build) with `--enable-bear` that uses
-[bear](https://github.com/rizsotto/Bear) to create the compilation database.
-It's not on by default as it make the build slightly slower.
+`compile_commands.json`. Wine also generates the file on its own via `makedep`.
 
-The build system collects all the created compile_commands.json files in a
-build subdirectory named `compile_commands/`.
+Proton's build system collects all the `compile_commands.json` files in a build
+subdirectory named `compile_commands/`.
 
 The paths are translated to point to the real source (i.e. not the rsynced
 copy). It still may depend on build directory for things like auto-generated
@@ -283,12 +280,12 @@ You can then configure your editor to use that file for clangd in a few ways:
 cd src/proton/wine/
 cat > .clangd <<EOF
 CompileFlags:
-  CompilationDatabase: ../build/current-dev/compile_commands/wine64/
+  CompilationDatabase: ../build/current-dev/compile_commands/wine-x86_64/
 EOF
 ```
 3) by symlinking:
 ```bash
-ln -s ../build/current-dev/compile_commands/wine64/compile_commands.json .
+ln -s ../build/current-dev/compile_commands/wine-x86_64/compile_commands.json .
 ```
 
 
