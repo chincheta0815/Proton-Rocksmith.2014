@@ -1114,8 +1114,6 @@ void steamclient_free_path_array( const char **path_array )
 unsigned int steamclient_unix_path_to_dos_path( bool api_result, const char *src, char *dst, uint32_t dst_bytes, int is_url )
 {
     static const char file_prot[] = "file://";
-    NTSTATUS status;
-    ULONG size = 0;
     uint32_t r = 0;
     WCHAR *dosW;
 
@@ -1148,9 +1146,9 @@ unsigned int steamclient_unix_path_to_dos_path( bool api_result, const char *src
         dst_bytes -= 7;
     }
 
-    status = ntdll_get_dos_file_name( src, &dosW, FILE_OPEN );
-    if (!status) r = ntdll_wcstoumbs( dosW, size, dst, dst_bytes, FALSE );
-    else *dst = 0;
+    ntdll_get_dos_file_name( src, &dosW, FILE_OPEN );
+    if (dosW) r = ntdll_wcstoumbs( dosW, wcslen( dosW ) + 1, dst, dst_bytes, FALSE );
+    else      *dst = 0;
     free( dosW );
 
     if (!strncmp( dst, "\\??\\", 4 ))
