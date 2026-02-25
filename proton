@@ -1875,6 +1875,9 @@ class Session:
         elif self.env["GST_GL_PLATFORM"] == "":
             del self.env["GST_GL_PLATFORM"]
 
+        if "__GLVND_DISALLOW_PATCHING" not in self.env:
+            self.env["__GLVND_DISALLOW_PATCHING"] = "1"
+
         # NVIDIA software may check for the "DriverStore" by querying the
         # NGXCore\NGXPath registry key via `D3DDDI_QUERYREGISTRY_SERVICEKEY` for
         # a given adapter. In the case where this path cannot be found, the
