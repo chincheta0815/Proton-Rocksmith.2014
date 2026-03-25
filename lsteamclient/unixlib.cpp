@@ -644,9 +644,9 @@ static void setup_proton_soundfonts( u_ISteamClient_SteamClient017 *client, int 
         return;
     }
     nt_path_len = wcslen(dos_path);
-    dos_path = (WCHAR*) realloc(dos_path, (nt_path_len + 1 + ARRAYSIZE(SF2_NAME)) * sizeof(*dos_path));
-    dos_path[nt_path_len - 1] = u'\\';
-    wcscpy( dos_path + nt_path_len, SF2_NAME );
+    dos_path = (WCHAR*) realloc(dos_path, (nt_path_len + 2 + ARRAYSIZE(SF2_NAME)) * sizeof(*dos_path));
+    dos_path[nt_path_len] = u'\\';
+    wcscpy( dos_path + nt_path_len + 1, SF2_NAME );
 
     WINE_TRACE( "GM file path %s\n", wine_dbgstr_w(dos_path) );
 
