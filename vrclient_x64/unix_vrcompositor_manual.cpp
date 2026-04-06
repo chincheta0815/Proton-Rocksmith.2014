@@ -234,11 +234,12 @@ template< typename Iface, typename Params >
 static NTSTATUS IVRCompositor_GetVulkanDeviceExtensionsRequired( Iface *iface, Params *params, bool wow64 )
 {
     const char vrext[] = "VK_WINE_openvr_device_extensions";
-    VkPhysicalDevice_T *host_device = vulkan_physical_device_from_handle( params->pPhysicalDevice )->host.physical_device;
     VkPhysicalDeviceProperties prop;
+    VkPhysicalDevice_T *host_device;
     char buffer[2048], name[64];
     uint32_t i, len;
 
+    host_device = params->pPhysicalDevice ? vulkan_physical_device_from_handle( params->pPhysicalDevice )->host.physical_device : NULL;
     len = iface->GetVulkanDeviceExtensionsRequired( host_device, buffer, sizeof(buffer) );
     if (!len || len > sizeof(buffer))
     {
