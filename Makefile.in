@@ -155,6 +155,21 @@ $(eval $(call rules-meson,dav1d,aarch64,unix))
 
 
 ##
+## libsoup
+##
+
+LIBSOUP_MESON_ARGS = \
+	-Ddocs=disabled \
+	-Dautobahn=disabled \
+	-Dtls_check=false
+
+$(eval $(call rules-source,libsoup,$(SRCDIR)/libsoup))
+$(eval $(call rules-meson,libsoup,i386,unix))
+$(eval $(call rules-meson,libsoup,x86_64,unix))
+$(eval $(call rules-meson,libsoup,aarch64,unix))
+
+
+##
 ## gst-orc
 ##
 
@@ -256,7 +271,7 @@ GST_GOOD_MESON_ARGS := \
 	-Dsoup=enabled \
 	-Dorc=enabled
 
-GST_GOOD_DEPENDS = gst_orc gstreamer gst_base
+GST_GOOD_DEPENDS = gst_orc gstreamer gst_base libsoup
 GST_GOOD_HOST_DEPENDS = gst_orc
 
 $(eval $(call rules-source,gst_good,$(SRCDIR)/gstreamer/subprojects/gst-plugins-good/))
