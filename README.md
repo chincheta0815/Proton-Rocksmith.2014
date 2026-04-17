@@ -50,10 +50,13 @@ dependencies on the host side.
 
 ## Preparing the build environment
 
-You need either a Docker or a Podman setup. We highly recommend [the rootless
-Podman setup][rootless-podman]. Please refer to your distribution's
-documentation for setup instructions (e.g. Arch [Podman][arch-podman] /
-[Docker][arch-docker], Debian [Podman][debian-podman] /
+You need either a Docker or a Podman setup which Proton's build system uses
+internally. You should never need to use either container engine manually unless
+working on those parts of build system directly.
+
+We highly recommend [the rootless Podman setup][rootless-podman]. Please refer
+to your distribution's documentation for setup instructions (e.g. Arch
+[Podman][arch-podman] / [Docker][arch-docker], Debian [Podman][debian-podman] /
 [Docker][debian-docker]).
 
 [rootless-podman]: https://github.com/containers/podman/blob/main/docs/tutorials/rootless_tutorial.md
