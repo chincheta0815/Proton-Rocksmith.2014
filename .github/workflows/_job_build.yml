@@ -55,7 +55,7 @@ jobs:
           git submodule update --init --filter=tree:0 --recursive
           patch -Np1 -i ./patches/0001-build-strip-binaries-early.patch
           #patch -Np1 -i ./patches/wine-configure-ac.patch
-          patch -Np1 -i ./patches/wine-wine-inf-in.patch
+          #patch -Np1 -i ./patches/wine-wine-inf-in.patch
           #mkdir -p ./wine/dlls/wineasio
           #cp -r ./wineasio/* ./wine/dlls/wineasio
           mkdir ./build
