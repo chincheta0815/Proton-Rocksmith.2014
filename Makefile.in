@@ -138,7 +138,7 @@ include $(SRC)/make/rules-winemaker.mk
 include $(SRC)/make/rules-wine-requests.mk
 include $(SRC)/make/rules-wine-tools.mk
 include $(SRC)/make/rules-cargo.mk
-
+include $(SRC)/make/rules-make-pwasio.mk
 
 ##
 ## dav1d
@@ -583,6 +583,18 @@ $(eval $(call rules-cmake,vosk,i386,unix))
 $(eval $(call rules-cmake,vosk,x86_64,unix))
 $(eval $(call rules-cmake,vosk,aarch64,unix))
 
+
+
+##
+## pwasio
+##
+
+PWASIO_DEPENDS = wine
+
+$(eval $(call rules-source,pwasio,$(SRCDIR)/pwasio))
+$(eval $(call rules-cmake,pwasio,i386,unix))
+$(eval $(call rules-cmake,pwasio,x86_64,unix))
+$(eval $(call rules-cmake,pwasio,aarch64,unix))
 
 ##
 ## wine
