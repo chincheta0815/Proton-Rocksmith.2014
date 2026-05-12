@@ -20,11 +20,13 @@ $$(OBJ)/.$(1)-i386-build:
 	@echo ":: building $(1)-$(3)..." >&2
 	+cd "$$($(2)_$(3)_OBJ)" && env $$($(2)_$(3)_ENV) \
 	PREFIX="$$($(2)_$(3)_OBJ)" \
+	WINEBUILD=$$(WINE_$$(HOST_ARCH)_OBJ)/tools/winebuild/winebuild \
 	WINEBUILD_EXTRA_INCLUDEDIR="-I$$(WINE_SRC)/include \
 		-I$$(WINE_SRC)/include/wine \
 		-I$$(WINE_$(3)_DST)/include/wine \
 		-I$$(WINE_$(3)_DST)/include/wine/windows" \
 	WINEBUILD_EXTRA_LIBDIR="-L$$(DST_LIBDIR$(3))/$$(WINE_$(3)_LIBDIR)" \
+	WINECC=$$(WINE_$$(HOST_ARCH)_OBJ)/tools/winegcc/winegcc \
 	$$(MAKE) 32
 	$(call install-strip,$$($(2)_$(3)_OBJ)/build32/$(1)32.dll,$$($(2)_$(3)_LIBDIR)/wine/$(3)-windows/)
 	$(call install-strip,$$($(2)_$(3)_OBJ)/build32/$(1)32.dll.so,$$($(2)_$(3)_LIBDIR)/wine/$(3)-unix/)
@@ -35,11 +37,13 @@ $$(OBJ)/.$(1)-i386-build:
 	@echo ":: building $(1)-$(3)..." >&2
 	+cd "$$($(2)_$(3)_OBJ)" && env $$($(2)_$(3)_ENV) \
 	PREFIX="$$($(2)_$(3)_OBJ)" \
+	WINEBUILD=$$(WINE_$$(HOST_ARCH)_OBJ)/tools/winebuild/winebuild \
 	WINEBUILD_EXTRA_INCLUDEDIR="-I$$(WINE_SRC)/include \
 		-I$$(WINE_SRC)/include/wine \
 		-I$$(WINE_$(3)_DST)/include/wine \
 		-I$$(WINE_$(3)_DST)/include/wine/windows" \
 	WINEBUILD_EXTRA_LIBDIR="-L$$(DST_LIBDIR$(3))/$$(WINE_$(3)_LIBDIR)" \
+	WINECC=$$(WINE_$$(HOST_ARCH)_OBJ)/tools/winegcc/winegcc \
 	$$(MAKE) 64
 	$(call install-strip,$$($(2)_$(3)_OBJ)/build64/$(1)64.dll,$$($(2)_$(3)_LIBDIR)/wine/$(3)-windows/)
 	$(call install-strip,$$($(2)_$(3)_OBJ)/build64/$(1)64.dll.so,$$($(2)_$(3)_LIBDIR)/wine/$(3)-unix/)

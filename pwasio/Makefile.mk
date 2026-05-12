@@ -20,8 +20,8 @@ DLLS = $(pwasio_dll_MODULE) $(pwasio_dll_MODULE).so
 ### Tools
 
 CC        = clang
-WINEBUILD = winebuild
-WINECC    = winegcc
+WINEBUILD ?= winebuild
+WINECC    ?= winegcc
 
 ### Common settings
 
@@ -118,5 +118,5 @@ build$(M)/$(pwasio_dll_MODULE): $(pwasio_dll_OBJS)
 	$(WINEBUILD) -m$(M) --dll --fake-module -E src/pwasio.dll.spec $^ -o $@
 
 build$(M)/$(pwasio_dll_MODULE).so: $(pwasio_dll_OBJS)
-	$(WINECC) $^ $(pwasio_dll_LDFLAGS) \
+	$(WINECC) --winebuild=$(WINEBUILD) $^ $(pwasio_dll_LDFLAGS) \
 		-lodbc32 -lole32 -luuid -lwinmm -lshlwapi -o $@
