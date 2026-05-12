@@ -115,7 +115,7 @@ build$(M)/%.c.o: src/%.c
 ### Target specific build rules
 
 build$(M)/$(pwasio_dll_MODULE): $(pwasio_dll_OBJS)
-	$(WINEBUILD) -m$(M) --dll --fake-module -E src/pwasio.dll.spec $^ -o $@
+	$(WINEBUILD) -m$(M) --dll --fake-module -E pwasio.dll.spec $^ -o $@
 
 build$(M)/$(pwasio_dll_MODULE).so: $(pwasio_dll_OBJS)
 	$(WINECC) --winebuild=$(WINEBUILD) $^ $(pwasio_dll_LDFLAGS) \
