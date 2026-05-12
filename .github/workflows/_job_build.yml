@@ -56,7 +56,7 @@ jobs:
           patch -Np1 -i ./patches/0001-build-strip-binaries-early.patch
           #patch -Np1 -i ./patches/wine-configure-ac.patch
           patch -Np1 -i ./patches/wine-wine-inf-in.patch
-          patch -Np1 -i ./patches/proton_3.7_tracked_files
+          patch -Np1 -i ./patches/proton_3.7_tracked_files.patch
           #mkdir -p ./wine/dlls/wineasio
           #cp -r ./wineasio/* ./wine/dlls/wineasio
           mkdir ./build
