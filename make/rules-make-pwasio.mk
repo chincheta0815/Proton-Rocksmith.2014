@@ -4,7 +4,7 @@
 #   $(3): build target arch
 #   $(4): build target os
 #
-define create-rules-pwasio
+define create-rules-make-pwasio
 $(call create-rules-common,$(1),$(2),$(3),$(4))
 ifneq ($(findstring $(3)-$(4),$(ARCHS)),)
 
@@ -51,4 +51,4 @@ $$(OBJ)/.$(1)-i386-build:
 endif
 endef
 
-rules-pwasio = $(call create-rules-pwasio,$(1),$(call toupper,$(1)),$(2),$(3))
+rules-make-pwasio = $(call create-rules-make-pwasio,$(1),$(call toupper,$(1)),$(2),$(3))

@@ -592,9 +592,9 @@ $(eval $(call rules-cmake,vosk,aarch64,unix))
 PWASIO_DEPENDS = wine
 
 $(eval $(call rules-source,pwasio,$(SRCDIR)/pwasio))
-$(eval $(call rules-cmake,pwasio,i386,unix))
-$(eval $(call rules-cmake,pwasio,x86_64,unix))
-$(eval $(call rules-cmake,pwasio,aarch64,unix))
+$(eval $(call rules-make-pwasio,pwasio,i386,unix))
+$(eval $(call rules-make-pwasio,pwasio,x86_64,unix))
+$(eval $(call rules-make-pwasio,pwasio,aarch64,unix))
 
 ##
 ## wine
