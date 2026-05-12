@@ -73,7 +73,7 @@ pwasio_dll_C_SRCS     = main.c \
 		        pwasio.c
 pwasio_dll_LDFLAGS  = -shared \
                       -m$(M) \
-		      src/pwasio.dll.spec \
+		      pwasio.dll.spec \
                       $(shell $(PKG_CONFIG) --libs libpipewire-0.3)
 
 ifneq ($(WINEBUILD_LIBDIR),)
