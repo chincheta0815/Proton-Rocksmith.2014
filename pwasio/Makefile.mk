@@ -37,7 +37,7 @@ VERSION_MINOR := 1
 VERSION_PATCH := 0
 DRIVER_REG := Software\\ASIO\\pwasio
 
-CEXTRA = -m$(M) -D_REENTRANT -fPIC -Wall -pipe
+CEXTRA = -m$(M) -D_REENTRANT -fPIC -Wall -pipe -std=gnu23
 CEXTRA += -Wextra -Wno-missing-field-initializers 
 CEXTRA += $(shell $(PKG_CONFIG) --cflags libpipewire-0.3)
 INCLUDE_PATH = -I.
