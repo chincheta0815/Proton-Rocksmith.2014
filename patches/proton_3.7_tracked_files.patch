@@ -1,5 +1,5 @@
---- proton_3.7_tracked_files	2026-05-12 20:02:22.000000000 +0200
-+++ proton_3.7_tracked_files	2026-05-12 20:03:37.000000000 +0200
+--- ./proton_3.7_tracked_files	2026-05-12 20:02:22.000000000 +0200
++++ ./proton_3.7_tracked_files	2026-05-12 20:03:37.000000000 +0200
 @@ -983,6 +983,7 @@
  ./drive_c/windows/syswow64/sensapi.dll
  ./drive_c/windows/syswow64/bcrypt.dll
