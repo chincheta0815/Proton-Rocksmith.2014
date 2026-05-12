@@ -671,6 +671,7 @@ $(OBJ)/.wine-x86_64-post-build:
 	$(call install-strip,$(WINE_x86_64_DST)/bin/wine,$(DST_DIR)/bin)
 	$(call install-strip,$(WINE_x86_64_DST)/bin/wineserver,$(DST_DIR)/bin)
 	cp -a $(WINE_x86_64_DST)/bin/msidb $(DST_DIR)/bin/
+	cp -a $(WINE_x84_64_DST)/bin/regsvr32 $(DST_DIR)/bin/
 
 	mkdir -p $(DST_DIR)/share
 	cp -a $(WINE_x86_64_DST)/share/wine $(DST_DIR)/share
@@ -681,6 +682,7 @@ $(OBJ)/.wine-aarch64-post-build:
 	$(call install-strip,$(WINE_aarch64_DST)/bin/wine,$(DST_DIR)/bin-arm64)
 	$(call install-strip,$(WINE_aarch64_DST)/bin/wineserver,$(DST_DIR)/bin-arm64)
 	cp -a $(WINE_aarch64_DST)/bin/msidb $(DST_DIR)/bin-arm64/
+	cp -a $(WINE_aarch64_DST)/bin/regsvr32 $(DST_DIR)/bin-arm64/
 ifeq ($(findstring x86_64,$(unix_ARCHS)),)
 	mkdir -p $(DST_DIR)/share
 	cp -a $(WINE_aarch64_DST)/share/wine $(DST_DIR)/share
@@ -1335,7 +1337,7 @@ endif
 ## default_pfx
 ##
 
-default_pfx: wine gst_good gst_bad gst_libav gst_plugins_rs lsteamclient steamexe vrclient wineopenxr $(WINEOPENXR64_JSON) dxvk dxvk-nvapi vkd3d-proton
+default_pfx: wine pwasio gst_good gst_bad gst_libav gst_plugins_rs lsteamclient steamexe vrclient wineopenxr $(WINEOPENXR64_JSON) dxvk dxvk-nvapi vkd3d-proton
 	find $(DST_LIBDIR)/wine -type f -execdir chmod a-w '{}' '+'
 	rm -rf $(abspath $(DIST_PREFIX))
 	rm -rf $(abspath $(DIST_PREFIX_ARM64))
