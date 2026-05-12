@@ -1,10 +1,10 @@
---- ./wine/loader/wine.inf.in	2026-05-03 12:55:51.000000000 +0200
-+++ ./wine/loader/wine.inf.in	2026-05-03 12:57:10.000000000 +0200
-@@ -2756,6 +2756,7 @@
- 11,wbem,wmic.exe
- 11,wbem,wmiutils.dll
- 11,WindowsPowerShell\v1.0,powershell.exe
-+11,,pwasio.dll
- ; empty folders to make sure the parent dirs are not removed
- 16410,Microsoft,
- 16412,Microsoft,
+--- ./wine/loader/wine.inf.in	2026-05-12 20:58:34.000000000 +0200
++++ ./wine/loader/wine.inf.in	2026-05-12 20:59:18.000000000 +0200
+@@ -768,6 +768,7 @@
+ 11,,wintrust.dll,1
+ 11,,wmadmod.dll,1
+ 11,,wmvdecod.dll,1
++11,,pwasio.dll,1
+ 11,,iexplore.exe,1
+ 
+ ; 32bit-only fake dlls

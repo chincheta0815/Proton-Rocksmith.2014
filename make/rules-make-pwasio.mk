@@ -28,8 +28,8 @@ $$(OBJ)/.$(1)-i386-build:
 	WINEBUILD_EXTRA_LIBDIR="-L$$(DST_LIBDIR$(3))/$$(WINE_$(3)_LIBDIR)" \
 	WINECC=$$(WINE_$$(HOST_ARCH)_OBJ)/tools/winegcc/winegcc \
 	$$(MAKE) 32
-	$(call install-strip,$$($(2)_$(3)_OBJ)/build32/$(1)32.dll,$$($(2)_$(3)_LIBDIR)/wine/$(3)-windows/)
-	$(call install-strip,$$($(2)_$(3)_OBJ)/build32/$(1)32.dll.so,$$($(2)_$(3)_LIBDIR)/wine/$(3)-unix/)
+	$(call install-strip,$$($(2)_$(3)_OBJ)/build32/$(1).dll,$$($(2)_$(3)_LIBDIR)/wine/$(3)-windows)
+	$(call install-strip,$$($(2)_$(3)_OBJ)/build32/$(1).so,$$($(2)_$(3)_LIBDIR)/wine/$(3)-unix)
 
 	touch $$@
 
@@ -45,8 +45,8 @@ $$(OBJ)/.$(1)-x86_64-build:
 	WINEBUILD_EXTRA_LIBDIR="-L$$(DST_LIBDIR$(3))/$$(WINE_$(3)_LIBDIR)" \
 	WINECC=$$(WINE_$$(HOST_ARCH)_OBJ)/tools/winegcc/winegcc \
 	$$(MAKE) 64
-	$(call install-strip,$$($(2)_$(3)_OBJ)/build64/$(1)64.dll,$$($(2)_$(3)_LIBDIR)/wine/$(3)-windows/)
-	$(call install-strip,$$($(2)_$(3)_OBJ)/build64/$(1)64.dll.so,$$($(2)_$(3)_LIBDIR)/wine/$(3)-unix/)
+	$(call install-strip,$$($(2)_$(3)_OBJ)/build64/$(1).dll,$$($(2)_$(3)_LIBDIR)/wine/$(3)-windows)
+	$(call install-strip,$$($(2)_$(3)_OBJ)/build64/$(1).so,$$($(2)_$(3)_LIBDIR)/wine/$(3)-unix)
 
 	touch $$@
 

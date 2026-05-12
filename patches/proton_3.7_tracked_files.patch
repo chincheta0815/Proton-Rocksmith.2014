@@ -1,0 +1,16 @@
+--- proton_3.7_tracked_files	2026-05-12 20:02:22.000000000 +0200
++++ proton_3.7_tracked_files	2026-05-12 20:03:37.000000000 +0200
+@@ -983,6 +983,7 @@
+ ./drive_c/windows/syswow64/sensapi.dll
+ ./drive_c/windows/syswow64/bcrypt.dll
+ ./drive_c/windows/syswow64/webservices.dll
++./drive_c/windows/syswow64/pwasio32.dll
+ ./drive_c/windows/explorer.exe
+ ./drive_c/windows/command
+ ./drive_c/windows/command/start.exe
+@@ -1887,4 +1888,5 @@
+ ./drive_c/windows/system32/sensapi.dll
+ ./drive_c/windows/system32/bcrypt.dll
+ ./drive_c/windows/system32/webservices.dll
++./drive_c/windows/system32/pwasio64.dll
+ ./drive_c/windows/Fonts

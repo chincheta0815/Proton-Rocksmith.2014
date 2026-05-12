@@ -12,10 +12,11 @@ ifeq ($(M),)
 $(error incorrect use of Makefile, M var is missing)
 endif
 
-pwasio_dll_MODULE = pwasio$(M).dll
+#pwasio_dll_MODULE = pwasio$(M).dll
+pwasio_dll_MODULE = pwasio.dll
 
 PREFIX = /usr
-DLLS = $(pwasio_dll_MODULE) $(pwasio_dll_MODULE).so
+DLLS = $(pwasio_dll_MODULE) $(pwasio_dll_MODULE:%.dll=%.so)
 
 ### Tools
 
@@ -117,6 +118,6 @@ build$(M)/%.c.o: src/%.c
 build$(M)/$(pwasio_dll_MODULE): $(pwasio_dll_OBJS)
 	$(WINEBUILD) -m$(M) --dll --fake-module -E pwasio.dll.spec $^ -o $@
 
-build$(M)/$(pwasio_dll_MODULE).so: $(pwasio_dll_OBJS)
+build$(M)/$(pwasio_dll_MODULE:%.dll=%.so): $(pwasio_dll_OBJS)
 	$(WINECC) --winebuild=$(WINEBUILD) $^ $(pwasio_dll_LDFLAGS) \
 		-lodbc32 -lole32 -luuid -lwinmm -lshlwapi -o $@
