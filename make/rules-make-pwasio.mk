@@ -33,7 +33,7 @@ $$(OBJ)/.$(1)-i386-build:
 
 	touch $$@
 
-$$(OBJ)/.$(1)-i386-build:
+$$(OBJ)/.$(1)-x86_64-build:
 	@echo ":: building $(1)-$(3)..." >&2
 	+cd "$$($(2)_$(3)_OBJ)" && env $$($(2)_$(3)_ENV) \
 	PREFIX="$$($(2)_$(3)_OBJ)" \
