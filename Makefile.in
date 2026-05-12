@@ -671,7 +671,7 @@ $(OBJ)/.wine-x86_64-post-build:
 	$(call install-strip,$(WINE_x86_64_DST)/bin/wine,$(DST_DIR)/bin)
 	$(call install-strip,$(WINE_x86_64_DST)/bin/wineserver,$(DST_DIR)/bin)
 	cp -a $(WINE_x86_64_DST)/bin/msidb $(DST_DIR)/bin/
-	cp -a $(WINE_x84_64_DST)/bin/regsvr32 $(DST_DIR)/bin/
+	cp -a $(WINE_x86_64_DST)/bin/regsvr32 $(DST_DIR)/bin/
 
 	mkdir -p $(DST_DIR)/share
 	cp -a $(WINE_x86_64_DST)/share/wine $(DST_DIR)/share
