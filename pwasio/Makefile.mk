@@ -96,12 +96,12 @@ pwasio_dll_LDFLAGS += \
                         $(WINEBUILD_EXTRA_LIBDIR)
 endif
 
-pwasio_dll_OBJS     = $(pwasio_dll_C_SRCS:%.c=build$(M)/%.c.o)
+pwasio_dll_OBJS     = $(pwasio_dll_C_SRCS:%.c=build-$(ARCH)/%.c.o)
 
 ### Generic targets
 
 all:
-build: $(DLLS:%=build$(M)/%)
+build: $(DLLS:%=build-$(ARCH)/%)
 
 ### Build rules
 
@@ -109,15 +109,16 @@ build: $(DLLS:%=build$(M)/%)
 
 ### Implicit rules
 
-build$(M)/%.c.o: src/%.c
-	@$(shell mkdir -p build$(M))
+build-$(ARCH)/%.c.o: src/%.c
+	@$(shell mkdir -p build-$(ARCH))
 	$(CC) -c $(DEFNS) $(INCLUDE_PATH) $(CEXTRA) -o $@ $<
+
 
 ### Target specific build rules
 
-build$(M)/$(pwasio_dll_MODULE): $(pwasio_dll_OBJS)
+build-$(ARCH)/$(pwasio_dll_MODULE): $(pwasio_dll_OBJS)
 	$(WINEBUILD) -m$(M) --dll --fake-module -E pwasio.dll.spec $^ -o $@
 
-build$(M)/$(pwasio_dll_MODULE:%.dll=%.so): $(pwasio_dll_OBJS)
+build-$(ARCH)/$(pwasio_dll_MODULE:%.dll=%.so): $(pwasio_dll_OBJS)
 	$(WINECC) --winebuild=$(WINEBUILD) $^ $(pwasio_dll_LDFLAGS) \
 		-lodbc32 -lole32 -luuid -lwinmm -lshlwapi -o $@
