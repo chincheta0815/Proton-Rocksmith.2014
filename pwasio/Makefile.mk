@@ -14,6 +14,7 @@ endif
 
 #pwasio_dll_MODULE = pwasio$(M).dll
 pwasio_dll_MODULE = pwasio.dll
+LIB_NAME = $(pwasio_dll_MODULE)
 
 PREFIX = /usr
 DLLS = $(pwasio_dll_MODULE) $(pwasio_dll_MODULE:%.dll=%.so)
@@ -112,7 +113,6 @@ build: $(DLLS:%=build-$(ARCH)/%)
 build-$(ARCH)/%.c.o: src/%.c
 	@$(shell mkdir -p build-$(ARCH))
 	$(CC) -c $(DEFNS) $(INCLUDE_PATH) $(CEXTRA) -o $@ $<
-
 
 ### Target specific build rules
 
