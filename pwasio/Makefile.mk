@@ -41,7 +41,7 @@ DRIVER_REG := Software\\ASIO\\pwasio
 
 CEXTRA = -m$(M) -D_REENTRANT -fPIC -Wall -pipe -std=gnu23
 CEXTRA += -Wextra -Wno-missing-field-initializers 
-CEXTRA += $(shell $(PKG_CONFIG) --cflags libpipewire-0.3)
+CEXTRA += $(shell $(PKG_CONFIG_BIN) --cflags libpipewire-0.3)
 INCLUDE_PATH = -I.
 DEFNS := -D_REENTRANT -D_GNU_SOURCE -DLIB_NAME='"$(LIB_NAME)"' -DDRIVER_REG='"$(DRIVER_REG)"'
 DEFNS += -DPWASIO_VERSION_MAJOR=$(VERSION_MAJOR)
@@ -76,7 +76,7 @@ pwasio_dll_C_SRCS     = main.c \
 pwasio_dll_LDFLAGS  = -shared \
                       -m$(M) \
 		      pwasio.dll.spec \
-                      $(shell $(PKG_CONFIG) --libs libpipewire-0.3)
+                      $(shell $(PKG_CONFIG_BIN) --libs libpipewire-0.3)
 
 ifneq ($(WINEBUILD_LIBDIR),)
 pwasio_dll_LDFLAGS += -L$(WINEBUILD_LIBDIR)

@@ -26,7 +26,7 @@ $$(OBJ)/.$(1)-$(3)-build:
 		-I$$(WINE_$(3)_DST)/include/wine/windows" \
 	WINEBUILD_EXTRA_LIBDIR="-L$$(WINE_$(3)_LIBDIR)" \
 	WINECC=$$(WINE_$$(HOST_ARCH)_OBJ)/tools/winegcc/winegcc \
-	PKG_CONFIG=$(PKG_CONFIG) \
+	PKG_CONFIG_BIN=$(PKG_CONFIG) \
 	$$(MAKE) $(3)
 	$(call install-strip,$$($(2)_$(3)_OBJ)/build-$(3)/$(1).dll,$$(DST_DIR)/lib/wine/$(3)-windows)
 	$(call install-strip,$$($(2)_$(3)_OBJ)/build-$(3)/$(1).so,$$(DST_DIR)/lib/wine/$(3)-unix)
