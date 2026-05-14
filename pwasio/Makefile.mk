@@ -112,7 +112,7 @@ build: $(DLLS:%=build-$(ARCH)/%)
 
 build-$(ARCH)/%.c.o: src/%.c
 	@$(shell mkdir -p build-$(ARCH))
-	$(CC_BIN) -c $(DEFNS) $(INCLUDE_PATH) $(CEXTRA) -o $@ $<
+	$(CC) -c $(DEFNS) $(INCLUDE_PATH) $(CEXTRA) -o $@ $<
 
 ### Target specific build rules
 
