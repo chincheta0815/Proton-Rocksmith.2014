@@ -591,8 +591,8 @@ $(eval $(call rules-cmake,vosk,aarch64,unix))
 
 PWASIO_DEPENDS = wine
 PWASIO_EXTRA_INCFLAGS = -I/usr/include/pipewire-0.3 -I/usr/include/spa-0.3
-PWASIO_i386_LDFLAGS = -L/usr/lib/i386-linux-gnu -lpipewire-0.3 -lspa-0.2
-PWASIO_x84_64_LDFLAGS = -L/usr/lib/x86_64-linux-gnu -lpipewire-0.3 -lspa-0.2
+PWASIO_i386_LDFLAGS = -L/usr/lib/i386-linux-gnu -lpipewire-0.3 
+PWASIO_x84_64_LDFLAGS = -L/usr/lib/x86_64-linux-gnu -lpipewire-0.3 
 
 $(eval $(call rules-source,pwasio,$(SRCDIR)/pwasio))
 $(eval $(call rules-make-pwasio,pwasio,i386,unix))
