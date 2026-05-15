@@ -26,8 +26,7 @@ $$(OBJ)/.$(1)-$(3)-build:
 		-I$$(WINE_$(3)_DST)/include/wine/windows \
 		$$($(2)_$(3)_EXTRA_INCFLAGS)" \
 	WINEBUILD_EXTRA_LIBDIR="-L$$(WINE_$(3)_LIBDIR) \
-		$$($(2)_$(3)_EXTRA_LIBDIR) \
-		-L/usr/lib/$(3)-linux-gnu -lpipewire-0.3" \
+		$$($(2)_$(3)_EXTRA_LIBDIR)" \
 	WINECC=$$(WINE_$$(HOST_ARCH)_OBJ)/tools/winegcc/winegcc \
 	$$(MAKE) $(3)
 	$(call install-strip,$$($(2)_$(3)_OBJ)/build-$(3)/$(1).dll,$$(DST_DIR)/lib/wine/$(3)-windows)
