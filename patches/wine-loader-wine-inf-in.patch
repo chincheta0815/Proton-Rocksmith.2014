@@ -1,0 +1,10 @@
+--- ./wine/loader/wine.inf.in	2026-05-24 21:34:22.000000000 +0200
++++ ./wine/loader/wine.inf.in	2026-06-05 09:34:33.000000000 +0200
+@@ -2220,6 +2220,7 @@
+ 55,,winprint.dll,1
+ 11,,wintrust.dll,1
+ 11,,iexplore.exe,1
++11,,pwasio.dll,1
+ 
+ ; 32bit-only fake dlls
+ [FakeDllsWin32]

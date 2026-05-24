@@ -1,0 +1,4 @@
+EXTRADEFS = -DLIB_NAME='"pwasio.dll"' -DDRIVER_REG='"Software\\ASIO\\pwasio"' -DPWASIO_VERSION_MAJOR=0 -DPWASIO_VERSION_MINOR=1 -DPWASIO_VERSION_PATCH=0
+MODULE  = pwasio.dll
+IMPORTS = odbc32 ole32 uuid winmm shlwapi gdi32
+DELAYIMPORTS = winmm

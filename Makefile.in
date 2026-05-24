@@ -98,7 +98,7 @@ include $(SRC)/make/rules-configure.mk
 include $(SRC)/make/rules-winemaker.mk
 include $(SRC)/make/rules-wine-requests.mk
 include $(SRC)/make/rules-cargo.mk
-
+include $(SRC)/make/rules-make-pwasio.mk
 
 ##
 ## dav1d
@@ -439,6 +439,7 @@ $(OBJ)/.wine-post-build64:
 	$(call install-strip,$(WINE_DST64)/bin/wine64,$(DST_DIR)/bin)
 	$(call install-strip,$(WINE_DST64)/bin/wine64-preloader,$(DST_DIR)/bin)
 	$(call install-strip,$(WINE_DST64)/bin/wineserver,$(DST_DIR)/bin)
+	cp -a $(WINE_DST64)/bin/regsvr32 $(DST_DIR)/bin/regsvr32-64
 	cp -a $(WINE_DST64)/share/wine $(DST_DIR)/share
 	cp -a $(WINE_DST64)/bin/msidb $(DST_DIR)/bin
 	touch $@
@@ -447,7 +448,19 @@ $(OBJ)/.wine-post-build32:
 	mkdir -p $(DST_DIR)/bin
 	$(call install-strip,$(WINE_DST32)/bin/wine,$(DST_DIR)/bin)
 	$(call install-strip,$(WINE_DST32)/bin/wine-preloader,$(DST_DIR)/bin)
+	cp -a $(WINE_DST32)/bin/regsvr32 $(DST_DIR)/bin/regsvr32
 	touch $@
+
+
+
+##
+## pwasio
+##
+
+PWASIO_DEPENDS = wine
+$(eval $(call rules-source,pwasio,$(SRCDIR)/pwasio))
+$(eval $(call rules-make-pwasio,pwasio,32))
+$(eval $(call rules-make-pwasio,pwasio,64))
 
 
 ##
@@ -1053,7 +1066,7 @@ all-dist: $(DIST_OVR32) $(DIST_OVR64)
 ## default_pfx
 ##
 
-default_pfx: wine gst_good gst_bad gst_libav gst_plugins_rs lsteamclient steamexe vrclient wineopenxr dxvk dxvk-nvapi vkd3d-proton
+default_pfx: wine pwasio gst_good gst_bad gst_libav gst_plugins_rs lsteamclient steamexe vrclient wineopenxr dxvk dxvk-nvapi vkd3d-proton
 	find $(DST_LIBDIR32)/wine -type f -execdir chmod a-w '{}' '+'
 	find $(DST_LIBDIR64)/wine -type f -execdir chmod a-w '{}' '+'
 	rm -rf $(abspath $(DIST_PREFIX))
@@ -1158,6 +1171,10 @@ deploy: all
 redist: all
 	mkdir -p $(REDIST_DIR)
 	rsync --delete -arx $(DST_BASE)/ $(REDIST_DIR)
+	mv $(REDIST_DIR) $(BUILD_NAME)
+	tar cvzf $(BUILD_NAME).tar.gz $(BUILD_NAME)
+	sha512sum $(BUILD_NAME).tar.gz > $(BUILD_NAME).sha512sum
+	@echo "Proton build available at $(BUILD_NAME).tar.gz"
 
 
 ##
