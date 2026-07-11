@@ -509,7 +509,7 @@ $(eval $(call rules-cmake,vosk,aarch64,unix))
 ## pipeasio
 ##
 
-$(eval $(call rules-source,fex,$(SRCDIR)/pipeasio))
+$(eval $(call rules-source,pipeasio,$(SRCDIR)/pipeasio))
 $(eval $(call rules-cmake,pipeasio,i386,windows))
 $(eval $(call rules-cmake,pipeasio,x86_64,windows))
 $(eval $(call rules-cmake,pipeasio,aarch64,windows))
