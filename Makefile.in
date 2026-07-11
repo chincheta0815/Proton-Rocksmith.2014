@@ -505,7 +505,22 @@ $(eval $(call rules-cmake,vosk,i386,unix))
 $(eval $(call rules-cmake,vosk,x86_64,unix))
 $(eval $(call rules-cmake,vosk,aarch64,unix))
 
+##
+## pipeasio
+##
 
+$(eval $(call rules-source,fex,$(SRCDIR)/pipeasio))
+$(eval $(call rules-cmake,pipeasio,i386,windows))
+$(eval $(call rules-cmake,pipeasio,x86_64,windows))
+$(eval $(call rules-cmake,pipeasio,aarch64,windows))
+$(eval $(call rules-cmake,pipeasio,arm64ec,windows))
+
+PIPEASIO_DEPENDS = wine
+
+PIPEASIO_CMAKE_ARGS = \
+  -DBUILD_WOW64_32=ON \
+  -DBUILD_SETTINGS_PANEL=OFF
+  
 ##
 ## wine
 ##
@@ -1400,7 +1415,7 @@ endif
 ## default_pfx
 ##
 
-default_pfx: wine lsteamclient steamexe vrclient dxvk d7vk dxvk-nvapi vkd3d-proton
+default_pfx: pipeasio wine lsteamclient steamexe vrclient dxvk d7vk dxvk-nvapi vkd3d-proton
 	find $(DST_LIBDIR)/wine -type f -execdir chmod a-w '{}' '+'
 	rm -rf $(abspath $(DIST_PREFIX))
 	rm -rf $(abspath $(DIST_PREFIX_ARM64))
